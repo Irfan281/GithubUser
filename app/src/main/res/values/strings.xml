@@ -12,7 +12,7 @@
     <string name="textrepository">Repository</string>
     <string name="dummy_number">9999</string>
     <string name="github_logo">Github Logo</string>
-    
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="content_tab_follower">Follower</string>
     <string name="content_tab_following">Follower</string>
@@ -23,4 +23,7 @@
     <string name="status_following">No Following</string>
     <string name="status_follower">No Follower</string>
     <string name="no_search">No search results found</string>
+
+    <string name="actionbar_favorite">Favorite</string>
+    <string name="actionbar_setting">Setting</string>
 </resources>

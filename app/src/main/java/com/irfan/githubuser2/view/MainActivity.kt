@@ -2,7 +2,10 @@ package com.irfan.githubuser2.view
 
 import android.app.SearchManager
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -35,6 +38,28 @@ class MainActivity : AppCompatActivity() {
         }
 
         search()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        val inflater = menuInflater
+        inflater.inflate(R.menu.actionbar_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.menu_favorite -> {
+                val i = Intent(this, FavoriteUserActivity::class.java)
+                startActivity(i)
+                true
+            }
+            R.id.menu_setting -> {
+                val i = Intent(this, SettingActivity::class.java)
+                startActivity(i)
+                true
+            }
+            else -> true
+        }
     }
 
     private fun search() {
