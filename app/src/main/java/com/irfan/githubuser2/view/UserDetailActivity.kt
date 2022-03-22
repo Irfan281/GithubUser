@@ -20,16 +20,6 @@ class UserDetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityUserDetailBinding
     private lateinit var userViewModel: UserViewModel
 
-    companion object {
-        @StringRes
-        private val TAB_TITLES = intArrayOf(
-            R.string.text_follower,
-            R.string.text_following
-        )
-
-        const val USERNAME = "username"
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityUserDetailBinding.inflate(layoutInflater)
@@ -52,7 +42,6 @@ class UserDetailActivity : AppCompatActivity() {
         userViewModel = ViewModelProvider(this, viewModelFactory).get(UserViewModel::class.java)
 
         startViewModel()
-
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -94,5 +83,15 @@ class UserDetailActivity : AppCompatActivity() {
             tvDetailFollowing.text = user.following.toString()
             tvDetailRepository.text = user.publicRepos.toString()
         }
+    }
+
+    companion object {
+        @StringRes
+        private val TAB_TITLES = intArrayOf(
+            R.string.text_follower,
+            R.string.text_following
+        )
+
+        const val USERNAME = "username"
     }
 }

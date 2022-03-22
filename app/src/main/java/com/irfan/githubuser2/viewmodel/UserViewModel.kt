@@ -15,10 +15,6 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class UserViewModel(name: String?) : ViewModel() {
-    companion object {
-        private const val TAG = "MainViewModel"
-    }
-
     private val _user = MutableLiveData<GithubUserResponse>()
     val user: LiveData<GithubUserResponse> = _user
 
@@ -110,5 +106,9 @@ class UserViewModel(name: String?) : ViewModel() {
                 Log.e(TAG, "onFailure: ${t.message}")
             }
         })
+    }
+
+    companion object {
+        private const val TAG = "MainViewModel"
     }
 }

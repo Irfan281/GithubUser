@@ -12,11 +12,6 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class SearchViewModel : ViewModel() {
-    companion object {
-        const val TAG = "MainViewModel"
-        const val DEFAULT_USERNAME = "followers:>3000"
-    }
-
     private val _listUser = MutableLiveData<List<ItemsList>>()
     val listUser: LiveData<List<ItemsList>> = _listUser
 
@@ -49,5 +44,8 @@ class SearchViewModel : ViewModel() {
         })
     }
 
-
+    companion object {
+        const val TAG = "MainViewModel"
+        const val DEFAULT_USERNAME = "followers:>3000"
+    }
 }

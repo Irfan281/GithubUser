@@ -77,13 +77,10 @@ class MainActivity : AppCompatActivity() {
         binding.rvUser.adapter = adapter
     }
 
-
     private fun showLoading(isLoading: Boolean) {
         binding.apply {
             progress.visibility = if (isLoading) View.VISIBLE else View.GONE
             rvUser.visibility = if (!isLoading) View.VISIBLE else View.GONE
         }
     }
-
-
 }
