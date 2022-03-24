@@ -1,8 +1,8 @@
-package com.irfan.githubuser2.api
+package com.irfan.githubuser2.data.remote.api
 
-import com.irfan.githubuser2.response.GithubUserResponse
-import com.irfan.githubuser2.response.ItemsList
-import com.irfan.githubuser2.response.Search
+import com.irfan.githubuser2.data.remote.response.GithubUserResponse
+import com.irfan.githubuser2.data.remote.response.ItemsList
+import com.irfan.githubuser2.data.remote.response.Search
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path

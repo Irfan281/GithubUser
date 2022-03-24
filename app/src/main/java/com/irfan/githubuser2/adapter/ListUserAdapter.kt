@@ -5,12 +5,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.irfan.githubuser2.data.local.FavoriteUser
 import com.irfan.githubuser2.databinding.ItemUserBinding
-import com.irfan.githubuser2.response.ItemsList
+import com.irfan.githubuser2.data.remote.response.ItemsList
 import com.irfan.githubuser2.view.UserDetailActivity
 
-class ListUserAdapter(private val users: List<ItemsList>) :
-    RecyclerView.Adapter<ListUserAdapter.ViewHolder>() {
+class ListUserAdapter(private val users: List<ItemsList>) : RecyclerView.Adapter<ListUserAdapter.ViewHolder>() {
+
     companion object {
         const val USERNAME = "username"
     }
@@ -29,13 +30,13 @@ class ListUserAdapter(private val users: List<ItemsList>) :
 
         holder.itemView.setOnClickListener {
             val toDetail = Intent(holder.itemView.context, UserDetailActivity::class.java)
-            toDetail.putExtra(USERNAME, username)
+            toDetail.putExtra(USERNAME, users[position])
             holder.itemView.context.startActivity(toDetail)
         }
     }
 
     override fun getItemCount(): Int = users.size
 
-    class ViewHolder(var binding: ItemUserBinding) : RecyclerView.ViewHolder(binding.root)
+    inner class ViewHolder(var binding: ItemUserBinding) : RecyclerView.ViewHolder(binding.root)
 }
 

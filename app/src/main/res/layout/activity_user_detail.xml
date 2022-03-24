@@ -56,7 +56,7 @@
     <TextView
         android:id="@+id/tv_detail_text_repository"
         style="@style/DetailText.Medium.24"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="36dp"
         android:text="@string/textrepository"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -66,7 +66,7 @@
     <TextView
         android:id="@+id/tv_detail_text_follower"
         style="@style/DetailText.Medium.24"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="36dp"
         android:text="@string/textfollower"
         app:layout_constraintEnd_toStartOf="@+id/tv_detail_text_following"
         app:layout_constraintHorizontal_bias="0.5"
@@ -114,7 +114,7 @@
     <TextView
         android:id="@+id/tv_detail_text_following"
         style="@style/DetailText.Medium.24"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="36dp"
         android:text="@string/textfollowing"
         app:layout_constraintEnd_toStartOf="@+id/tv_detail_text_repository"
         app:layout_constraintHorizontal_bias="0.5"
@@ -170,5 +170,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tabs"
         app:layout_constraintVertical_bias="0.0" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fb_favorite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="24dp"
+        android:contentDescription="@string/favorite_user"
+        app:fabSize="normal"
+        app:tint="@color/pink"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/favorite_button" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

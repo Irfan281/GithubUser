@@ -3,9 +3,14 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/00-Bangkit/submission/kumpul2/GithubUser2/app/src/main/res/drawable/favorite_button.xml" value="0.141" />
+        <entry key="..\:/00-Bangkit/submission/kumpul2/GithubUser2/app/src/main/res/drawable/ic_baseline_favorite_24.xml" value="0.141" />
         <entry key="..\:/00-Bangkit/submission/kumpul2/GithubUser2/app/src/main/res/drawable/ic_favorite.xml" value="0.1465" />
         <entry key="..\:/00-Bangkit/submission/kumpul2/GithubUser2/app/src/main/res/layout/activity_favorite_user.xml" value="0.26721014492753625" />
+        <entry key="..\:/00-Bangkit/submission/kumpul2/GithubUser2/app/src/main/res/layout/activity_main.xml" value="0.2563405797101449" />
         <entry key="..\:/00-Bangkit/submission/kumpul2/GithubUser2/app/src/main/res/layout/activity_setting.xml" value="0.26721014492753625" />
+        <entry key="..\:/00-Bangkit/submission/kumpul2/GithubUser2/app/src/main/res/layout/activity_user_detail.xml" value="0.25" />
+        <entry key="..\:/00-Bangkit/submission/kumpul2/GithubUser2/app/src/main/res/layout/item_user.xml" value="0.25" />
         <entry key="..\:/00-Bangkit/submission/kumpul2/GithubUser2/app/src/main/res/menu/actionbar_menu.xml" value="0.3619791666666667" />
       </map>
     </option>

@@ -1,6 +1,8 @@
-package com.irfan.githubuser2.response
+package com.irfan.githubuser2.data.remote.response
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
 data class GithubUserResponse(
     @field:SerializedName("avatar_url")
@@ -37,13 +39,14 @@ data class GithubUserResponse(
     val url: String,
 )
 
+@Parcelize
 data class ItemsList(
     @field:SerializedName("login")
     val username: String,
 
     @field:SerializedName("avatar_url")
-    val avatarUrl: String,
-)
+    val avatarUrl: String
+) : Parcelable
 
 data class Search(
     @field:SerializedName("total_count")

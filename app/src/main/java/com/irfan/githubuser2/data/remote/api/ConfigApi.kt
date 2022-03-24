@@ -1,4 +1,4 @@
-package com.irfan.githubuser2.api
+package com.irfan.githubuser2.data.remote.api
 
 import com.irfan.githubuser2.BuildConfig
 import okhttp3.OkHttpClient

@@ -5,9 +5,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.irfan.githubuser2.api.ConfigApi
-import com.irfan.githubuser2.response.GithubUserResponse
-import com.irfan.githubuser2.response.ItemsList
+import com.irfan.githubuser2.data.remote.api.ConfigApi
+import com.irfan.githubuser2.data.remote.response.GithubUserResponse
+import com.irfan.githubuser2.data.remote.response.ItemsList
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.Call

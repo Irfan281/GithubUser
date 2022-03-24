@@ -26,4 +26,7 @@
 
     <string name="actionbar_favorite">Favorite</string>
     <string name="actionbar_setting">Setting</string>
+    <string name="favorite_user">favorite user</string>
+    <string name="favorite_users_empty">Favorite Users Empty</string>
+    <string name="dark_mode">Dark Mode</string>
 </resources>

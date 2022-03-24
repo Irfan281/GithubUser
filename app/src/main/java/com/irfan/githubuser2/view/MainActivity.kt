@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.irfan.githubuser2.R
 import com.irfan.githubuser2.adapter.ListUserAdapter
 import com.irfan.githubuser2.databinding.ActivityMainBinding
-import com.irfan.githubuser2.response.ItemsList
+import com.irfan.githubuser2.data.remote.response.ItemsList
 import com.irfan.githubuser2.viewmodel.SearchViewModel
 
 class MainActivity : AppCompatActivity() {

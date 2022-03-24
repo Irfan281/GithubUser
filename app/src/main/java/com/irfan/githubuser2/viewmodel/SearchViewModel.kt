@@ -4,9 +4,9 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.irfan.githubuser2.api.ConfigApi
-import com.irfan.githubuser2.response.ItemsList
-import com.irfan.githubuser2.response.Search
+import com.irfan.githubuser2.data.remote.api.ConfigApi
+import com.irfan.githubuser2.data.remote.response.ItemsList
+import com.irfan.githubuser2.data.remote.response.Search
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

@@ -9,7 +9,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.irfan.githubuser2.adapter.ListUserAdapter
 import com.irfan.githubuser2.databinding.FragmentFollowingBinding
-import com.irfan.githubuser2.response.ItemsList
+import com.irfan.githubuser2.data.remote.response.ItemsList
 import com.irfan.githubuser2.viewmodel.UserViewModel
 
 class FollowingFragment : Fragment() {
