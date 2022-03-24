@@ -7,15 +7,26 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.SearchView
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.preferencesDataStore
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.irfan.githubuser2.R
 import com.irfan.githubuser2.adapter.ListUserAdapter
-import com.irfan.githubuser2.databinding.ActivityMainBinding
 import com.irfan.githubuser2.data.remote.response.ItemsList
+import com.irfan.githubuser2.databinding.ActivityMainBinding
+import com.irfan.githubuser2.datastore.ThemePreferences
 import com.irfan.githubuser2.viewmodel.SearchViewModel
+import com.irfan.githubuser2.viewmodel.ThemeViewModel
+import com.irfan.githubuser2.viewmodel.ThemeViewModelFactory
+
+private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -27,6 +38,7 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        setTheme()
 
         supportActionBar?.setDisplayShowHomeEnabled(true)
 
@@ -38,6 +50,22 @@ class MainActivity : AppCompatActivity() {
         }
 
         search()
+    }
+
+    private fun setTheme() {
+        val preference = ThemePreferences.getInstance(dataStore)
+        val themeViewModel =
+            ViewModelProvider(this, ThemeViewModelFactory(preference))[ThemeViewModel::class.java]
+
+        themeViewModel.getThemeSetting().observe(
+            this
+        ) { isDarkThemeActive: Boolean ->
+            if (isDarkThemeActive) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            }
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -91,6 +119,10 @@ class MainActivity : AppCompatActivity() {
 
         searchViewModel.isLoading.observe(this) {
             showLoading(it)
+        }
+
+        searchViewModel.responseStatus.observe(this) {
+            Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
         }
     }
 

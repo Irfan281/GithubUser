@@ -1,10 +1,16 @@
 package com.irfan.githubuser2.view
 
+import android.content.Context
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
@@ -12,19 +18,17 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.irfan.githubuser2.R
 import com.irfan.githubuser2.adapter.SectionsPagerAdapter
-import com.irfan.githubuser2.data.local.FavoriteUser
-import com.irfan.githubuser2.databinding.ActivityUserDetailBinding
 import com.irfan.githubuser2.data.remote.response.GithubUserResponse
 import com.irfan.githubuser2.data.remote.response.ItemsList
-import com.irfan.githubuser2.viewmodel.FavoriteViewModel
-import com.irfan.githubuser2.viewmodel.FavoriteViewModelFactory
-import com.irfan.githubuser2.viewmodel.UserViewModel
-import com.irfan.githubuser2.viewmodel.UserViewModelFactory
+import com.irfan.githubuser2.databinding.ActivityUserDetailBinding
+import com.irfan.githubuser2.datastore.ThemePreferences
+import com.irfan.githubuser2.viewmodel.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-@Suppress("CAST_NEVER_SUCCEEDS")
+private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
+
 class UserDetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityUserDetailBinding
     private lateinit var userViewModel: UserViewModel
@@ -34,7 +38,7 @@ class UserDetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityUserDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        setTheme()
         setTabLayout()
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -43,21 +47,32 @@ class UserDetailActivity : AppCompatActivity() {
         val data = intent.getParcelableExtra<ItemsList>(USERNAME)
 
         val userViewModelFactory = UserViewModelFactory(data?.username)
-        userViewModel = ViewModelProvider(this, userViewModelFactory).get(UserViewModel::class.java)
+        userViewModel = ViewModelProvider(this, userViewModelFactory)[UserViewModel::class.java]
         startViewModel()
 
         favoriteViewModel = callViewModel(this@UserDetailActivity)
+        setFavorite(data)
+    }
 
+    private fun setFavorite(data: ItemsList?) {
         CoroutineScope(Dispatchers.IO).launch {
             if (data != null) {
                 if (favoriteViewModel.isFavorite(data.username))
-                    binding.fbFavorite.setImageDrawable(ContextCompat.getDrawable(applicationContext, R.drawable.ic_favorite))
+                    binding.fbFavorite.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            applicationContext,
+                            R.drawable.ic_favorite
+                        )
+                    )
                 else
-                    binding.fbFavorite.setImageDrawable(ContextCompat.getDrawable(applicationContext, R.drawable.ic_favorite_blank))
+                    binding.fbFavorite.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            applicationContext,
+                            R.drawable.ic_favorite_blank
+                        )
+                    )
             }
         }
-
-
 
         binding.fbFavorite.setOnClickListener {
             if (data != null) {
@@ -69,7 +84,12 @@ class UserDetailActivity : AppCompatActivity() {
                         )
                     )
                     favoriteViewModel.delete(data.username)
-                }else {
+                    Toast.makeText(
+                        this,
+                        "${data.username} deleted from favorite",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                } else {
                     binding.fbFavorite.setImageDrawable(
                         ContextCompat.getDrawable(
                             applicationContext,
@@ -77,7 +97,25 @@ class UserDetailActivity : AppCompatActivity() {
                         )
                     )
                     favoriteViewModel.insert(data)
+                    Toast.makeText(this, "${data.username} added to favorite", Toast.LENGTH_SHORT)
+                        .show()
                 }
+            }
+        }
+    }
+
+    private fun setTheme() {
+        val preference = ThemePreferences.getInstance(dataStore)
+        val themeViewModel =
+            ViewModelProvider(this, ThemeViewModelFactory(preference))[ThemeViewModel::class.java]
+
+        themeViewModel.getThemeSetting().observe(
+            this
+        ) { isDarkThemeActive: Boolean ->
+            if (isDarkThemeActive) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
             }
         }
     }
@@ -99,7 +137,7 @@ class UserDetailActivity : AppCompatActivity() {
 
     private fun callViewModel(activity: AppCompatActivity): FavoriteViewModel {
         val factory = FavoriteViewModelFactory.getInstance(activity.application)
-        return ViewModelProvider(activity, factory).get(FavoriteViewModel::class.java)
+        return ViewModelProvider(activity, factory)[FavoriteViewModel::class.java]
     }
 
     private fun showLoading(isLoading: Boolean) {
@@ -115,6 +153,10 @@ class UserDetailActivity : AppCompatActivity() {
 
         userViewModel.isLoading.observe(this) { isLoading ->
             showLoading(isLoading)
+        }
+
+        userViewModel.responseStatus.observe(this) {
+            Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
         }
     }
 

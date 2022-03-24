@@ -15,7 +15,12 @@ class ConfigApi {
                 HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.NONE)
             }
             val client = OkHttpClient.Builder()
-                .addInterceptor{ it.proceed(it.request().newBuilder().addHeader("Authorization", ": token ${BuildConfig.GITHUB_KEY}").build())}
+                .addInterceptor {
+                    it.proceed(
+                        it.request().newBuilder()
+                            .addHeader("Authorization", ": token ${BuildConfig.GITHUB_KEY}").build()
+                    )
+                }
                 .build()
             val retrofit = Retrofit.Builder()
                 .baseUrl("https://api.github.com/")

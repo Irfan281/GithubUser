@@ -8,8 +8,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.irfan.githubuser2.adapter.ListUserAdapter
-import com.irfan.githubuser2.databinding.FragmentFollowerBinding
 import com.irfan.githubuser2.data.remote.response.ItemsList
+import com.irfan.githubuser2.databinding.FragmentFollowerBinding
 import com.irfan.githubuser2.viewmodel.UserViewModel
 
 class FollowerFragment : Fragment() {
@@ -33,6 +33,12 @@ class FollowerFragment : Fragment() {
             val layoutManager = LinearLayoutManager(requireActivity())
             binding.rvFollower.layoutManager = layoutManager
             setUserData(listFollower)
+        }
+
+        userViewModel.isLoadingFragment.observe(viewLifecycleOwner) { isLoadingFragment ->
+            binding.apply {
+                progressFragment.visibility = if (isLoadingFragment) View.VISIBLE else View.GONE
+            }
         }
     }
 

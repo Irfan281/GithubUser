@@ -18,6 +18,9 @@ class SearchViewModel : ViewModel() {
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
+    private val _responseStatus = MutableLiveData<String>()
+    val responseStatus: LiveData<String> = _responseStatus
+
     init {
         searchUser(DEFAULT_USERNAME)
     }
@@ -39,6 +42,7 @@ class SearchViewModel : ViewModel() {
 
             override fun onFailure(call: Call<Search>, t: Throwable) {
                 _isLoading.value = false
+                _responseStatus.value = t.message
                 Log.e(TAG, "onFailure: ${t.message}")
             }
         })

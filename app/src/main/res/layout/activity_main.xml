@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/dark_blue"
     tools:context=".view.MainActivity">
 
     <androidx.appcompat.widget.SearchView
@@ -38,8 +37,7 @@
         android:id="@+id/progress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:foregroundTint="#000000"
-        android:progressTint="#FF0000"
+        android:indeterminateTint="@color/blue_sky"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
