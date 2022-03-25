@@ -27,8 +27,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
-
 class UserDetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityUserDetailBinding
     private lateinit var userViewModel: UserViewModel
@@ -38,7 +36,6 @@ class UserDetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityUserDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        setTheme()
         setTabLayout()
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -100,22 +97,6 @@ class UserDetailActivity : AppCompatActivity() {
                     Toast.makeText(this, "${data.username} added to favorite", Toast.LENGTH_SHORT)
                         .show()
                 }
-            }
-        }
-    }
-
-    private fun setTheme() {
-        val preference = ThemePreferences.getInstance(dataStore)
-        val themeViewModel =
-            ViewModelProvider(this, ThemeViewModelFactory(preference))[ThemeViewModel::class.java]
-
-        themeViewModel.getThemeSetting().observe(
-            this
-        ) { isDarkThemeActive: Boolean ->
-            if (isDarkThemeActive) {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-            } else {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
             }
         }
     }

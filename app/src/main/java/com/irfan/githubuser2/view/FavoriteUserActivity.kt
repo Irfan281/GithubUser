@@ -20,8 +20,6 @@ import com.irfan.githubuser2.viewmodel.FavoriteViewModelFactory
 import com.irfan.githubuser2.viewmodel.ThemeViewModel
 import com.irfan.githubuser2.viewmodel.ThemeViewModelFactory
 
-private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
-
 @Suppress("UNCHECKED_CAST")
 class FavoriteUserActivity : AppCompatActivity() {
     private lateinit var binding: ActivityFavoriteUserBinding
@@ -31,7 +29,6 @@ class FavoriteUserActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityFavoriteUserBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        setTheme()
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title = "Favorite User"
@@ -61,22 +58,6 @@ class FavoriteUserActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
         return true
-    }
-
-    private fun setTheme() {
-        val preference = ThemePreferences.getInstance(dataStore)
-        val themeViewModel =
-            ViewModelProvider(this, ThemeViewModelFactory(preference))[ThemeViewModel::class.java]
-
-        themeViewModel.getThemeSetting().observe(
-            this
-        ) { isDarkThemeActive: Boolean ->
-            if (isDarkThemeActive) {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-            } else {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-            }
-        }
     }
 
     private fun convert(fav: List<FavUser>): List<ItemsList> {
