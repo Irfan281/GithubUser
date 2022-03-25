@@ -6,3 +6,5 @@ Feature :
 - Display popular Github User list 
 - Search User using Github API search endpoint
 - Display detail page with a list of followers and following
+- Favorite user to local storage
+- Support Dark Mode and Light Mode
