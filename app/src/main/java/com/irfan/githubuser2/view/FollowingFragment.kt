@@ -34,6 +34,12 @@ class FollowingFragment : Fragment() {
             binding.rvFollowing.layoutManager = layoutManager
             setUserData(listFollowing)
         }
+
+        userViewModel.isLoadingFragment.observe(viewLifecycleOwner) { isLoadingFragment ->
+            binding.apply {
+                progressFragment.visibility = if (isLoadingFragment) View.VISIBLE else View.GONE
+            }
+        }
     }
 
     private fun setUserData(listUsers: List<ItemsList>) {

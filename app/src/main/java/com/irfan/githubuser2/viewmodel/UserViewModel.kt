@@ -89,12 +89,15 @@ class UserViewModel(name: String?) : ViewModel() {
     }
 
     private fun following() {
+        _isLoadingFragment.value = true
+
         val client = ConfigApi.getApiService().getFollowing(username)
         client.enqueue(object : Callback<List<ItemsList>> {
             override fun onResponse(
                 call: Call<List<ItemsList>>,
                 response: Response<List<ItemsList>>
             ) {
+                _isLoadingFragment.value = false
                 if (response.isSuccessful) {
                     _listFollowing.value = response.body()
                 } else {
@@ -103,6 +106,7 @@ class UserViewModel(name: String?) : ViewModel() {
             }
 
             override fun onFailure(call: Call<List<ItemsList>>, t: Throwable) {
+                _isLoadingFragment.value = false
                 _responseStatus.value = t.message
                 Log.e(TAG, "onFailure: ${t.message}")
             }
